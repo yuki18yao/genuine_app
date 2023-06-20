@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:genuine_app/screens/chat.dart';
@@ -6,7 +7,7 @@ import 'package:genuine_app/screens/home.dart';
 import 'package:genuine_app/screens/explore.dart';
 import 'package:genuine_app/screens/settings.dart';
 
-/// Class which handles scene switching from the 
+/// Class which handles scene switching from the
 /// NavigationBar buttons
 class TabsScreen extends StatefulWidget {
   const TabsScreen({super.key});
@@ -18,9 +19,9 @@ class TabsScreen extends StatefulWidget {
 }
 
 class _TabsScreenState extends State<TabsScreen> {
-  int _selectedPageIndex = 0; // Index to point to each pages
+  int _selectedPageIndex = 2; // Index to point to each pages
 
-  /// Method that takes the index and stores it to 
+  /// Method that takes the index and stores it to
   /// the _selectedPageIndex
   void _selectPage(int index) {
     setState(() {
@@ -28,15 +29,19 @@ class _TabsScreenState extends State<TabsScreen> {
     });
   }
 
-  /// build method that returns Scaffold 
+  /// build method that returns Scaffold
   /// with each page that is selected
   @override
   Widget build(BuildContext context) {
-    Widget activePage = const ChatScreen(); // Set initial activePage as ChatScreen
-    var activePageTitle = 'AI Chatbot'; // Set initial activePageTitle as 'AI Chatbot'
+    Widget activePage = const HomeScreen(); // Set initial activePage as HomeScreen
+    var activePageTitle = 'Home'; // Set initial activePageTitle as 'Home'
 
-    /// Determine which page to show based on 
+    /// Determine which page to show based on
     /// the index of _selectedPageIndex
+    if (_selectedPageIndex == 0) {
+      activePage = const ChatScreen();
+      activePageTitle = 'AI Chatbot';
+    }
     if (_selectedPageIndex == 1) {
       activePage = const CommunityScreen();
       activePageTitle = 'Community';
@@ -62,6 +67,17 @@ class _TabsScreenState extends State<TabsScreen> {
           style: const TextStyle(color: Colors.white),
         ),
         centerTitle: true,
+        actions: [
+          IconButton(
+              onPressed: () {
+                FirebaseAuth.instance
+                    .signOut(); // Sign out user when the button is pressed
+              },
+              icon: const Icon(
+                Icons.exit_to_app,
+                color: Colors.white,
+              ))
+        ],
       ),
       body: activePage, // set the body to the activePage selected
       bottomNavigationBar: BottomNavigationBar(

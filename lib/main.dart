@@ -1,8 +1,14 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
+import 'package:genuine_app/screens/auth.dart';
 import 'package:genuine_app/screens/tabs.dart';
+import 'package:genuine_app/screens/splash.dart';
 
 final theme = ThemeData(
   useMaterial3: true,
@@ -14,7 +20,13 @@ final theme = ThemeData(
 );
 
 Future<void> main() async {
-  await dotenv.load(fileName: "assets/.env"); // Accessing .env file to obtain the API Key
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  await dotenv.load(
+      fileName: "assets/.env"); // Accessing .env file to obtain the API Key
   runApp(const App());
 }
 
@@ -26,7 +38,26 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: theme,
-      home: const TabsScreen(),
+      // Using StreamBuilder to change the screen
+      // to display based on user authentication state
+      // if the snapshot contains any data, that means 
+      // the user Authentication Token exists. 
+      // Therefore, display the home screen. 
+      // Else, jump to AuthScreen(). 
+      // Also jumps to AuthScreen() when user presses sign-out.
+      home: StreamBuilder(
+          stream: FirebaseAuth.instance.authStateChanges(),
+          builder: (context, snapshot) {
+            // Displaying the splash screen while the Firebase is 
+            // figuring out the user authentication state
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const SplashScreen();
+            }
+            if (snapshot.hasData) {
+              return const TabsScreen();
+            }
+            return const AuthScreen();
+          }),
     );
   }
 }
