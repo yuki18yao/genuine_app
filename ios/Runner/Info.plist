@@ -47,5 +47,11 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>NSPhotoLibraryUsageDescription</key>
+  <string>Upload images for profile picture and shared-journal feature</string>
+  <key>NSCameraUsageDescription</key>
+  <string>Upload image from camera for profile picture and shared-journal feature</string>
+  <key>NSMicrophoneUsageDescription</key>
+  <string>Post videos in shared-journal</string>
 </dict>
 </plist>
