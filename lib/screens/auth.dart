@@ -85,13 +85,15 @@ class _AuthScreenState extends State<AuthScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: Center(
+      //backgroundColor: Colors.white,
+      body: Container(
+        alignment: Alignment.center,
         child: SingleChildScrollView(
             child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Container(
+              alignment: Alignment.bottomLeft,
               margin: const EdgeInsets.only(
                 top: 30,
                 bottom: 20,
@@ -99,9 +101,27 @@ class _AuthScreenState extends State<AuthScreen> {
                 right: 20,
               ),
               width: 200,
-              child: Image.asset('assets/images/genuine_logo.png'),
+              child: Image.asset('assets/images/DancingDoodle.png'),
+            ),
+            if (_isLogin)
+              Text(
+                'Welcome back,',
+                style: Theme.of(context).textTheme.headlineLarge,
+                textAlign: TextAlign.left,
+              ),
+            if (!_isLogin)
+              Text(
+                'Get on board!',
+                style: Theme.of(context).textTheme.headlineLarge,
+                textAlign: TextAlign.left,
+              ),
+            Text(
+              'Unleash your potential',
+              style: Theme.of(context).textTheme.bodyLarge,
+              textAlign: TextAlign.left,
             ),
             Card(
+              elevation: 0,
               margin: const EdgeInsets.all(20),
               child: SingleChildScrollView(
                   child: Padding(
@@ -119,8 +139,11 @@ class _AuthScreenState extends State<AuthScreen> {
                           ),
                         if (!_isLogin)
                           TextFormField(
-                            decoration:
-                                const InputDecoration(labelText: 'Nickname'),
+                            decoration: const InputDecoration(
+                                prefixIcon: Icon(Icons.person_outline_outlined),
+                                labelText: 'Nickname',
+                                hintText: 'Nickname',
+                                border: OutlineInputBorder()),
                             enableSuggestions: false,
                             validator: (value) {
                               if (value == null || value.isEmpty) {
@@ -132,9 +155,14 @@ class _AuthScreenState extends State<AuthScreen> {
                               _enteredNickname = value!;
                             },
                           ),
+                        const SizedBox(height: 12),
                         TextFormField(
-                          decoration:
-                              const InputDecoration(labelText: 'Email Address'),
+                          decoration: const InputDecoration(
+                            prefixIcon: Icon(Icons.mail_outline_rounded),
+                            labelText: 'Email',
+                            hintText: 'Email',
+                            border: OutlineInputBorder(),
+                          ),
                           keyboardType: TextInputType.emailAddress,
                           autocorrect: false,
                           textCapitalization: TextCapitalization.none,
@@ -152,9 +180,17 @@ class _AuthScreenState extends State<AuthScreen> {
                             _enteredEmail = value!;
                           },
                         ),
+                        const SizedBox(height: 12),
                         TextFormField(
-                          decoration:
-                              const InputDecoration(labelText: 'Password'),
+                          decoration: const InputDecoration(
+                              prefixIcon: Icon(Icons.lock_outline_rounded),
+                              labelText: 'Password',
+                              hintText: 'Password',
+                              border: OutlineInputBorder(),
+                              suffixIcon: IconButton(
+                                onPressed: null,
+                                icon: Icon(Icons.remove_red_eye_sharp),
+                              )),
                           obscureText: true,
                           validator: (value) {
                             // Checks if the input password matches criteria
@@ -169,19 +205,32 @@ class _AuthScreenState extends State<AuthScreen> {
                           },
                         ),
                         const SizedBox(height: 12),
+                        if (_isLogin)
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: TextButton(
+                                onPressed: () {},
+                                child: const Text('Forgot Password?')),
+                          ),
+                        const SizedBox(height: 12),
                         if (_isAuthenticating)
                           const CircularProgressIndicator(),
                         if (!_isAuthenticating)
-                          ElevatedButton(
-                            onPressed:
-                                _submit, // call _submit method once pressed
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Theme.of(context)
-                                  .colorScheme
-                                  .primaryContainer,
+                          SizedBox(
+                            width: double.infinity,
+                            child: ElevatedButton(
+                              onPressed:
+                                  _submit, // call _submit method once pressed
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Theme.of(context)
+                                    .colorScheme
+                                    .primaryContainer,
+                              ),
+                              child: Text(_isLogin ? 'Login' : 'Signup'),
                             ),
-                            child: Text(_isLogin ? 'Login' : 'Signup'),
                           ),
+                        const SizedBox(height: 12),
+                        const Text('or'),
                         if (!_isAuthenticating)
                           TextButton(
                             onPressed: () {
@@ -191,8 +240,8 @@ class _AuthScreenState extends State<AuthScreen> {
                               });
                             },
                             child: Text(_isLogin
-                                ? 'Create an account'
-                                : 'Already have an account? Login.'),
+                                ? 'Don\'t have an account? Signup'
+                                : 'Already have an account? Login'),
                           ),
                       ],
                     )),
