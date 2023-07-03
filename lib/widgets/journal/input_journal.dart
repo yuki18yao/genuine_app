@@ -1,4 +1,8 @@
+import 'dart:io';
+
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:genuine_app/widgets/journal/journal_image_picker.dart';
 
 class InputJournal extends StatefulWidget {
   static route() => MaterialPageRoute(
@@ -18,11 +22,26 @@ class _InputJournalState extends State<InputJournal> {
   bool _enableJournal1 = false;
   bool _enableJournal2 = false;
   bool _enableNone = false;
+  List<File> images = [];
 
   @override
   void dispose() {
     super.dispose();
     inputJournalController.dispose();
+  }
+
+  void onPickImages() async {
+    List<File> pickedImages = await pickImages();
+    for (File image in pickedImages) {
+      images.add(image);
+    }
+    setState(() {});
+  }
+
+  void onTakeImage() async {
+    File imageTaken = await takeImage();
+    images.add(imageTaken);
+    setState(() {});
   }
 
   @override
@@ -69,7 +88,7 @@ class _InputJournalState extends State<InputJournal> {
           //color: Colors.blue,
           child: Column(children: [
             Container(
-              height: 400,
+              height: 300,
               margin: const EdgeInsets.symmetric(horizontal: 25),
               child: TextField(
                 textCapitalization: TextCapitalization.sentences,
@@ -91,6 +110,21 @@ class _InputJournalState extends State<InputJournal> {
                 maxLines: null,
               ),
             ),
+            if (images.isNotEmpty)
+              CarouselSlider(
+                items: images.map(
+                  (file) {
+                    return Container(
+                      width: MediaQuery.of(context).size.width,
+                        margin: const EdgeInsets.all(5),
+                        child: Image.file(file));
+                  },
+                ).toList(),
+                options: CarouselOptions(
+                  height: 150,
+                  enableInfiniteScroll: false,
+                ),
+              ),
             Container(
               decoration: const BoxDecoration(
                 border: Border(
@@ -129,7 +163,7 @@ class _InputJournalState extends State<InputJournal> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   TextButton.icon(
-                    onPressed: () {},
+                    onPressed: onTakeImage,
                     style: TextButton.styleFrom(
                       backgroundColor:
                           Theme.of(context).colorScheme.inversePrimary,
@@ -145,7 +179,7 @@ class _InputJournalState extends State<InputJournal> {
                   ),
                   const SizedBox(width: 20),
                   TextButton.icon(
-                    onPressed: () {},
+                    onPressed: onPickImages,
                     style: TextButton.styleFrom(
                       backgroundColor:
                           Theme.of(context).colorScheme.inversePrimary,
@@ -256,7 +290,7 @@ class _InputJournalState extends State<InputJournal> {
                       ),
                       Switch(
                         value: _enableNone,
-                        activeColor: Theme.of(context).colorScheme.primary,
+                        activeColor: Colors.red[600],
                         onChanged: (value) {
                           setState(() {
                             _enableJournal1 = false;
