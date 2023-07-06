@@ -10,6 +10,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget content = Container(
+      margin: const EdgeInsets.all(5),
       child: const Column( // change column to scrollable widget since the page does not fit in one screen.
         children: [
           MoodFaces(),

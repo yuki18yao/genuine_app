@@ -1,11 +1,10 @@
+import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-
-import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
+import 'package:genuine_app/models/chat_message_model.dart';
 //import 'package:intl/intl.dart';
 
 import 'package:genuine_app/widgets/chat/message_bubble.dart';
-import 'package:genuine_app/models/chat_message_model.dart';
 
 /// A class for receiving & displaying user input, 
 /// communicating with OpenAI API, 
@@ -46,7 +45,7 @@ class _NewMessageState extends State<NewMessage> {
 
     // This tells ChatGPT what his role is
     _handleInitialMessage(
-      'Your name is Genuine. You are a digital psychotherapist. You use a tone that is empathetic and humorous. Please send a very short intro message.',
+      'You are a digital psychotherapist. Use a tone that is empathetic and humorous. Please send a very short intro message. Reply with questions until the user agrees on your message.',
     );
 
     super.initState();

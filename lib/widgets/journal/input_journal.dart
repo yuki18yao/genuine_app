@@ -213,7 +213,7 @@ class _InputJournalState extends State<InputJournal> {
                   Text(
                     'Which shared-journal would you like to share?',
                     style: TextStyle(
-                      fontSize: 15,
+                      fontSize: 14,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
