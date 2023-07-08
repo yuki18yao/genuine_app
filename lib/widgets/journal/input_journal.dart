@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:genuine_app/widgets/journal/controller/journal_controller.dart';
 import 'package:genuine_app/widgets/journal/journal_image_picker.dart';
+import 'package:riverpod/riverpod.dart';
 
 class InputJournal extends StatefulWidget {
   static route() => MaterialPageRoute(
@@ -28,6 +30,11 @@ class _InputJournalState extends State<InputJournal> {
   void dispose() {
     super.dispose();
     inputJournalController.dispose();
+  }
+
+  void shareJournal() {
+    Ref
+    JournalController().shareJournal(images: images, text: , context: context)
   }
 
   void onPickImages() async {
