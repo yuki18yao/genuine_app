@@ -5,16 +5,23 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:genuine_app/core/enums/journal_type_enum.dart';
 import 'package:riverpod/riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final journalControllerProvider = StateNotifierProvider<JournalController, bool>((ref) {
-  return JournalController(ref: ref,);
+final journalControllerProvider =
+    StateNotifierProvider<JournalController, bool>((ref) {
+  return JournalController(
+    ref: ref,
+  );
 });
 
 class JournalController extends StateNotifier<bool> {
   final Ref _ref;
   final user = FirebaseAuth.instance.currentUser!;
 
-  JournalController({required Ref ref,}) : _ref = ref, super(false);
+  JournalController({
+    required Ref ref,
+  })  : _ref = ref,
+        super(false);
 
   void shareJournal({
     required List<File> images,
@@ -67,19 +74,24 @@ class JournalController extends StateNotifier<bool> {
         .collection('users')
         .doc(user.uid)
         .get();
+
+    //print(userData.data()!['nickname']);
     // Storing the journal data into the FirebaseFirestore
-    FirebaseFirestore.instance.collection('journal').add({
-      'text': text,
-      'link': link,
-      'imageLinks': [],
-      'uid': user.uid,
-      'nickname': userData.data()!['nickname'],
-      'userImage': userData.data()!['image_url'],
-      'journalType': JournalType.text,
-      'createdTime': DateTime.now(),
-      'commentIds': [],
-      'journalId': '',
-    });
+    FirebaseFirestore.instance.collection('journal').add(
+      {
+        'text': text,
+        'link': link,
+        'imageLinks': [],
+        'uid': user.uid,
+        'nickname': userData.data()!['nickname'],
+        'userImage': userData.data()!['image_url'],
+        'journalType': 'text',
+        'createdTime': DateTime.now(),
+        'commentIds': [],
+        'journalId': '',
+      },
+    );
+    state = false;
   }
 
   /// A method to extract link from the input text

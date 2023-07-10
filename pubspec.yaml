@@ -47,6 +47,7 @@ dependencies:
   carousel_slider: ^4.2.1
   state_notifier: ^0.7.2+1
   riverpod: ^2.3.6
+  flutter_riverpod: ^2.3.6
 
 dev_dependencies:
   flutter_test:
