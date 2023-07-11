@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:genuine_app/core/enums/journal_type_enum.dart';
 import 'package:riverpod/riverpod.dart';
@@ -51,7 +52,45 @@ class JournalController extends StateNotifier<bool> {
     required List<File> images,
     required String text,
     required BuildContext context,
-  }) {}
+  }) async {
+    state = true;
+    String link = _getLinkFromText(text);
+    List<String> imageLinks = [];
+
+    final storageRef =
+        FirebaseStorage.instance
+        .ref()
+        .child('journal_images');
+        //.child('${user.uid}.jpg');
+
+    for (File image in images) {
+      storageRef.child('${user.uid}.jpg').putFile(image);
+      imageLinks.add(await storageRef.getDownloadURL());
+    }
+    
+    // Retrieving the user data from the FirebaseFirestore 'users' collection
+    final userData = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(user.uid)
+        .get();
+
+    // Storing the journal data into the FirebaseFirestore
+    FirebaseFirestore.instance.collection('journal').add(
+      {
+        'text': text,
+        'link': link,
+        'imageLinks': imageLinks,
+        'uid': user.uid,
+        'nickname': userData.data()!['nickname'],
+        'userImage': userData.data()!['image_url'],
+        'journalType': 'image',
+        'createdTime': DateTime.now(),
+        'commentIds': [],
+        'journalId': '',
+      },
+    );
+    state = false;
+  }
 
   void _shareTextJournal({
     required String text,
@@ -59,23 +98,12 @@ class JournalController extends StateNotifier<bool> {
   }) async {
     state = true;
     String link = _getLinkFromText(text);
-    /*Journal journal = Journal(
-      text: text,
-      link: link,
-      'imageLinks': [],
-      uid: user.uid, 
-      'journalType': JournalType.text,
-      'createdTime': DateTime.now(),
-      'commentIds': [],
-      'journalId': '',
-    );*/
     // Retrieving the user data from the FirebaseFirestore 'users' collection
     final userData = await FirebaseFirestore.instance
         .collection('users')
         .doc(user.uid)
         .get();
 
-    //print(userData.data()!['nickname']);
     // Storing the journal data into the FirebaseFirestore
     FirebaseFirestore.instance.collection('journal').add(
       {
