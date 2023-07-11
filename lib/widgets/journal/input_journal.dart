@@ -4,7 +4,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:genuine_app/widgets/journal/controller/journal_controller.dart';
 import 'package:genuine_app/widgets/journal/journal_image_picker.dart';
-import 'package:riverpod/riverpod.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class InputJournal extends ConsumerStatefulWidget {
