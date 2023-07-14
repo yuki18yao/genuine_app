@@ -44,7 +44,7 @@ class _TabsScreenState extends State<TabsScreen> {
     }
     if (_selectedPageIndex == 1) {
       activePage = const CommunityScreen();
-      activePageTitle = 'Community';
+      activePageTitle = 'Journal';
     }
     if (_selectedPageIndex == 2) {
       activePage = const HomeScreen();
@@ -93,7 +93,7 @@ class _TabsScreenState extends State<TabsScreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.groups),
-            label: 'Community',
+            label: 'Journal',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.home),

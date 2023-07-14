@@ -60,12 +60,16 @@ class JournalController extends StateNotifier<bool> {
     final storageRef =
         FirebaseStorage.instance
         .ref()
-        .child('journal_images');
-        //.child('${user.uid}.jpg');
+        .child('journal_images')
+        .child('${user.uid}.jpg');
+
+        
+        //final downloadUrl = await snapshot.ref.getDownloadURL();
 
     for (File image in images) {
-      storageRef.child('${user.uid}.jpg').putFile(image);
-      imageLinks.add(await storageRef.getDownloadURL());
+      //storageRef.child('${user.uid}.jpg').putFile(image);
+      final TaskSnapshot snapshot = await storageRef.putFile(image);
+      imageLinks.add(await snapshot.ref.getDownloadURL());
     }
     
     // Retrieving the user data from the FirebaseFirestore 'users' collection
