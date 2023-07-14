@@ -25,7 +25,7 @@ class _MoodFacesState extends State<MoodFaces> {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.all(15.0),
-      height: 168.0,
+      height: 140.0,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
         gradient: const LinearGradient(
@@ -51,45 +51,45 @@ class _MoodFacesState extends State<MoodFaces> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               InkWell(
-                onTap: onInputJournal, // Jump to journal input screen once tapped
                 child: IconButton(
                   padding: const EdgeInsets.symmetric(),
                   icon: Image.asset('assets/images/very_bad.png'),
                   iconSize: 45,
-                  onPressed: () {
-                    print('very bad');
-                  },
+                  onPressed: onInputJournal,
                 ),
               ),
-              IconButton(
-                padding: const EdgeInsets.symmetric(),
-                icon: Image.asset('assets/images/poor.png'),
-                iconSize: 45,
-                onPressed: onInputJournal,
+              InkWell(
+                child: IconButton(
+                  padding: const EdgeInsets.symmetric(),
+                  icon: Image.asset('assets/images/poor.png'),
+                  iconSize: 45,
+                  onPressed: onInputJournal,
+                ),
               ),
-              IconButton(
-                padding: const EdgeInsets.symmetric(),
-                icon: Image.asset('assets/images/medium.png'),
-                iconSize: 45,
-                onPressed: () {
-                  print('medium');
-                },
+              InkWell(
+                child: IconButton(
+                  padding: const EdgeInsets.symmetric(),
+                  icon: Image.asset('assets/images/medium.png'),
+                  iconSize: 45,
+                  onPressed: onInputJournal,
+                ),
               ),
-              IconButton(
-                padding: const EdgeInsets.symmetric(),
-                icon: Image.asset('assets/images/good.png'),
-                iconSize: 45,
-                onPressed: () {
-                  print('good');
-                },
+              InkWell(
+                child: IconButton(
+                  padding: const EdgeInsets.symmetric(),
+                  icon: Image.asset('assets/images/good.png'),
+                  iconSize: 45,
+                  onPressed: onInputJournal,
+                ),
               ),
-              IconButton(
-                padding: const EdgeInsets.symmetric(),
-                icon: Image.asset('assets/images/excellent.png'),
-                iconSize: 45,
-                onPressed: () {
-                  print('excellent');
-                },
+              InkWell(
+                onTap: onInputJournal, 
+                child: IconButton(
+                  padding: const EdgeInsets.symmetric(),
+                  icon: Image.asset('assets/images/excellent.png'),
+                  iconSize: 45,
+                  onPressed: onInputJournal,
+                ),
               ),
             ],
           ),
