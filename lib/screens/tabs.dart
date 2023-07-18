@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:genuine_app/screens/chat.dart';
-import 'package:genuine_app/screens/community.dart';
+import 'package:genuine_app/screens/journal.dart';
 import 'package:genuine_app/screens/home.dart';
 import 'package:genuine_app/screens/explore.dart';
 import 'package:genuine_app/screens/settings.dart';
@@ -43,7 +43,7 @@ class _TabsScreenState extends State<TabsScreen> {
       activePageTitle = 'AI Chatbot';
     }
     if (_selectedPageIndex == 1) {
-      activePage = const CommunityScreen();
+      activePage = const JournalScreen();
       activePageTitle = 'Journal';
     }
     if (_selectedPageIndex == 2) {
