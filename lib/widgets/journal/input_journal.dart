@@ -80,26 +80,51 @@ class InputJournalState extends ConsumerState<InputJournal> {
         actions: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Material(
-              color: Theme.of(context).colorScheme.inversePrimary,
-              borderRadius: BorderRadius.circular(50),
-              child: InkWell(
-                onTap: () {},
-                borderRadius: BorderRadius.circular(50),
-                child: Container(
-                  width: 60,
-                  height: 35,
+            child: Row(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50),
+                    color: Colors.grey[300],
+                  ),
+                  width: 65,
+                  height: 40,
                   alignment: Alignment.center,
-                  child: Text(
-                    'Post',
-                    style: TextStyle(
-                        color: Theme.of(context).colorScheme.primary,
-                        fontWeight: FontWeight.bold),
+                  child: TextButton(
+                    onPressed: shareJournal,
+                    child: Text(
+                      'Draft',
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.secondary,
+                          fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ),
-              ),
+                const SizedBox(
+                  width: 10,
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50),
+                    color: Theme.of(context).colorScheme.inversePrimary,
+                  ),
+                  
+                  width: 65,
+                  height: 40,
+                  alignment: Alignment.center,
+                  child: TextButton(
+                    onPressed: shareJournal,
+                    child: Text(
+                      'Post',
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.primary,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+              ],
             ),
-          )
+          ),
         ],
       ),
       body: isLoading
@@ -110,7 +135,7 @@ class InputJournalState extends ConsumerState<InputJournal> {
                 //color: Colors.blue,
                 child: Column(children: [
                   Container(
-                    height: 300,
+                    height: 500,
                     margin: const EdgeInsets.symmetric(horizontal: 25),
                     child: TextField(
                       textCapitalization: TextCapitalization.sentences,
@@ -334,7 +359,7 @@ class InputJournalState extends ConsumerState<InputJournal> {
                 ]),
               ),
             ),
-      bottomNavigationBar: Container(
+      /*bottomNavigationBar: Container(
         height: 100,
         child: InkWell(
           onTap: shareJournal,
@@ -352,7 +377,7 @@ class InputJournalState extends ConsumerState<InputJournal> {
             ),
           ),
         ),
-      ),
+      ),*/
     );
   }
 }
