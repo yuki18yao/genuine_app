@@ -33,7 +33,8 @@ class _TabsScreenState extends State<TabsScreen> {
   /// with each page that is selected
   @override
   Widget build(BuildContext context) {
-    Widget activePage = const HomeScreen(); // Set initial activePage as HomeScreen
+    Widget activePage =
+        const HomeScreen(); // Set initial activePage as HomeScreen
     var activePageTitle = 'Home'; // Set initial activePageTitle as 'Home'
 
     /// Determine which page to show based on
