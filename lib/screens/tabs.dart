@@ -19,7 +19,7 @@ class TabsScreen extends StatefulWidget {
 }
 
 class _TabsScreenState extends State<TabsScreen> {
-  int _selectedPageIndex = 2; // Index to point to each pages
+  int _selectedPageIndex = 1; // Index to point to each pages
 
   /// Method that takes the index and stores it to
   /// the _selectedPageIndex
@@ -44,13 +44,14 @@ class _TabsScreenState extends State<TabsScreen> {
       activePageTitle = 'AI Chatbot';
     }
     if (_selectedPageIndex == 1) {
-      activePage = const JournalScreen();
-      activePageTitle = 'Journal';
-    }
-    if (_selectedPageIndex == 2) {
       activePage = const HomeScreen();
       activePageTitle = 'Home';
     }
+    if (_selectedPageIndex == 2) {
+      activePage = const JournalScreen();
+      activePageTitle = 'Journal';
+    }
+    /*
     if (_selectedPageIndex == 3) {
       activePage = const ExploreScreen();
       activePageTitle = 'Explore';
@@ -59,6 +60,7 @@ class _TabsScreenState extends State<TabsScreen> {
       activePage = const SettingsScreen();
       activePageTitle = 'Settings';
     }
+    */
 
     return Scaffold(
       appBar: AppBar(
@@ -93,13 +95,14 @@ class _TabsScreenState extends State<TabsScreen> {
             label: 'Chat',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.groups),
-            label: 'Journal',
-          ),
-          BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
           ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.groups),
+            label: 'Journal',
+          ),
+          /*
           BottomNavigationBarItem(
             icon: Icon(Icons.video_library),
             label: 'Explore',
@@ -108,6 +111,7 @@ class _TabsScreenState extends State<TabsScreen> {
             icon: Icon(Icons.settings),
             label: 'Settings',
           ),
+          */
         ],
       ),
     );
