@@ -55,6 +55,7 @@ class JournalList extends ConsumerWidget {
             itemBuilder: (context, index) {
               //loadedJournals[index].data()['text'],
               final journal = loadedJournals[index].data();
+              /*
               final otherJournal = index + 1 < loadedJournals.length
                   ? loadedJournals[index + 1].data()
                   : null;
@@ -87,7 +88,17 @@ class JournalList extends ConsumerWidget {
                   journalId: otherJournal['journalId'],
                   userImage: otherJournal['userImage'],
                 );
-              }
+              }*/
+              return JournalCard.text(
+                  nickname: journal['nickname'],
+                  text: journal['text'],
+                  link: journal['link'],
+                  uid: journal['uid'],
+                  createdTime: journal['createdTime'],
+                  //commentIds: journal['commentIds'],
+                  journalId: journal['journalId'],
+                  userImage: journal['userImage'],
+                );
             },
           ),
           Padding(
