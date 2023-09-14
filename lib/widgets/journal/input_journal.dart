@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:genuine_app/screens/journal.dart';
 import 'package:genuine_app/widgets/journal/controller/journal_controller.dart';
 import 'package:genuine_app/widgets/journal/journal_image_picker.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -12,6 +13,10 @@ class InputJournal extends ConsumerStatefulWidget {
   static route() => MaterialPageRoute(
         builder: (context) => const InputJournal(),
       );
+
+  /*static routeForJournal() => MaterialPageRoute(
+        builder: (context) => const JournalScreen(),
+      );*/
 
   //const InputJournal({super.key});
 
@@ -46,6 +51,10 @@ class InputJournalState extends ConsumerState<InputJournal> {
           text: inputJournalController.text,
           context: context,
         );
+    Navigator.pop(context);
+    /*Navigator.push(
+    context,
+    InputJournal.routeForJournal());*/
   }
 
   void onPickImages() async {
@@ -286,7 +295,7 @@ class InputJournalState extends ConsumerState<InputJournal> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             const Text(
-                              'Weiyi & Yuki\'s Journal',
+                              'Jimmy & Giannis\'s Journal',
                               style: TextStyle(
                                 fontSize: 15,
                               ),
@@ -310,7 +319,7 @@ class InputJournalState extends ConsumerState<InputJournal> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             const Text(
-                              'Ryosei & Yuki\'s Journal',
+                              'Jimmy & Taytum\'s Journal',
                               style: TextStyle(
                                 fontSize: 15,
                               ),
