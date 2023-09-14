@@ -17,7 +17,7 @@ final journalControllerProvider =
 
 class JournalController extends StateNotifier<bool> {
   final Ref _ref;
-  final user = FirebaseAuth.instance.currentUser!;
+  //final user = FirebaseAuth.instance.currentUser!;
 
   JournalController({
     required Ref ref,
@@ -61,7 +61,7 @@ class JournalController extends StateNotifier<bool> {
         FirebaseStorage.instance
         .ref()
         .child('journal_images')
-        .child('${user.uid}.jpg');
+        .child('${FirebaseAuth.instance.currentUser!.uid}.jpg');
 
         
         //final downloadUrl = await snapshot.ref.getDownloadURL();
@@ -75,7 +75,7 @@ class JournalController extends StateNotifier<bool> {
     // Retrieving the user data from the FirebaseFirestore 'users' collection
     final userData = await FirebaseFirestore.instance
         .collection('users')
-        .doc(user.uid)
+        .doc(FirebaseAuth.instance.currentUser!.uid)
         .get();
 
     // Storing the journal data into the FirebaseFirestore
@@ -84,7 +84,7 @@ class JournalController extends StateNotifier<bool> {
         'text': text,
         'link': link,
         'imageLinks': imageLinks,
-        'uid': user.uid,
+        'uid': FirebaseAuth.instance.currentUser!.uid,
         'nickname': userData.data()!['nickname'],
         'userImage': userData.data()!['image_url'],
         'journalType': 'image',
@@ -105,7 +105,7 @@ class JournalController extends StateNotifier<bool> {
     // Retrieving the user data from the FirebaseFirestore 'users' collection
     final userData = await FirebaseFirestore.instance
         .collection('users')
-        .doc(user.uid)
+        .doc(FirebaseAuth.instance.currentUser!.uid)
         .get();
 
     // Storing the journal data into the FirebaseFirestore
@@ -114,7 +114,7 @@ class JournalController extends StateNotifier<bool> {
         'text': text,
         'link': link,
         'imageLinks': [],
-        'uid': user.uid,
+        'uid': FirebaseAuth.instance.currentUser!.uid,
         'nickname': userData.data()!['nickname'],
         'userImage': userData.data()!['image_url'],
         'journalType': 'text',
